@@ -22,6 +22,7 @@ async function bootstrap() {
     value: 1000,
     userId: user.id,
   });
+    console.log('user', user.id);
 
   await quotesService.create({
     type: 'Seguro Vida',
