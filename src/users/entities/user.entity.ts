@@ -13,6 +13,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column({ default: false }) // 👈 Adiciona esta linha
+  isAdmin: boolean;
+
   @OneToMany(() => Quote, (quote) => quote.user)
   quotes: Quote[];
 }
