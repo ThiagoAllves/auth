@@ -18,7 +18,7 @@ export class AuthService {
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Senha incorreta');
+      throw new UnauthorizedException('Incorrect username or password');
     }
 
     // Retorna um objeto sem a senha
@@ -27,9 +27,9 @@ export class AuthService {
   }
 
   async login(user) {
-    await this.validateUser(user.email, user.password);
+    const dbUser = await this.validateUser(user.email, user.password);
     
-    const payload = { sub: user.password, email: user.email };
+    const payload = { sub: user.password, email: user.email, userId: dbUser.id };
     return {
       access_token: this.jwtService.sign(payload),
     };

@@ -1,4 +1,4 @@
-import { Controller, Get, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { QuotesService } from './quotes.service';
 
@@ -11,5 +11,12 @@ export class QuotesController {
   async findAll(@Request() req) {
     const userId = req.user.userId; // ID extraído do JWT
     return this.quotesService.findByUser(userId);
+  }
+
+  @Post('create')
+  async createQuote(@Request() req){
+    const userId = req.user.id; // ID extraído do JWT
+    const { type, value } = req.body; // Supondo que o corpo da requisição contém esses campos
+    return this.quotesService.create({ type, value, userId });
   }
 }
