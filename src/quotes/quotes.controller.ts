@@ -15,7 +15,7 @@ export class QuotesController {
 
   @Post('create')
   async createQuote(@Request() req){
-    const userId = req.user.id; // ID extraído do JWT
+    const userId = req.user.userId; // ID extraído do JWT
     const { type, value } = req.body; // Supondo que o corpo da requisição contém esses campos
     return this.quotesService.create({ type, value, userId });
   }
